@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-flask
+  labels:
+    app: hello-flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-flask
+  template:
+    metadata:
+      labels:
+        app: hello-flask
+    spec:
+      containers:
+      - name: hello-flask
+        image: jmsearcy/hello-flask:latest
+        ports:
+        - containerPort: 8080
+        command: ["gunicorn", "hello:app", "--config=config.py"]
+        imagePullPolicy: Always
+        env:
+          - name: APP_PORT
+            value: "8080"
+          - name: APP_DEBUG
+            value: "0"
