@@ -6,6 +6,7 @@ import config
 import datetime
 import json
 import logging
+import platform
 
 app = Flask(__name__)
 
@@ -22,10 +23,10 @@ def root_endpoint():
 
     app.logger.info(f"'/' endpoint was called")
 
-    hello_text = "Hello, World!"
+    platform_info = platform.uname()
 
     # Return JSON formatted response object
-    return jsonify(hello_text)
+    return jsonify(platform_info)
 
 
 @app.route("/test1/", methods=["GET"])
